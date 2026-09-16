@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "author": "Devang Chaturvedi",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-stm32-bluepill", "id": "stm32", "top": 0, "left": 0, "attrs": {} },
+
+    { "type": "wokwi-vcc", "id": "vcc1", "top": -40, "left": -40, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 60, "left": -40, "attrs": {} },
+
+    { "type": "wokwi-potentiometer", "id": "pot_setpoint", "top": -60, "left": 120, "attrs": { "value": "50" } },
+    { "type": "wokwi-potentiometer", "id": "pot_load", "top": -60, "left": 200, "attrs": { "value": "0" } },
+
+    { "type": "wokwi-pushbutton", "id": "btn_approve", "top": 40, "left": 120, "attrs": { "color": "green" } },
+    { "type": "wokwi-pushbutton", "id": "btn_stall", "top": 40, "left": 170, "attrs": { "color": "red" } },
+    { "type": "wokwi-pushbutton", "id": "btn_overload", "top": 40, "left": 220, "attrs": { "color": "red" } },
+    { "type": "wokwi-pushbutton", "id": "btn_sensor", "top": 40, "left": 270, "attrs": { "color": "red" } },
+    { "type": "wokwi-pushbutton", "id": "btn_bkin", "top": 40, "left": 320, "attrs": { "color": "black" } },
+
+    { "type": "wokwi-led", "id": "led_run",     "top": 100, "left": 120, "attrs": { "color": "green" } },
+    { "type": "wokwi-led", "id": "led_warn",    "top": 100, "left": 160, "attrs": { "color": "yellow" } },
+    { "type": "wokwi-led", "id": "led_fault",   "top": 100, "left": 200, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led_lockout", "top": 100, "left": 240, "attrs": { "color": "blue" } },
+
+    { "type": "wokwi-resistor", "id": "r_run",     "top": 90, "left": 120, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r_warn",    "top": 90, "left": 160, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r_fault",   "top": 90, "left": 200, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r_lockout", "top": 90, "left": 240, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    ["stm32:A9", "$serialMonitor:RX", "", []],
+
+    ["stm32:A0", "pot_setpoint:SIG", "green", []],
+    ["pot_setpoint:VCC", "vcc1:VCC", "red", []],
+    ["pot_setpoint:GND", "gnd1:GND", "black", []],
+
+    ["stm32:A1", "pot_load:SIG", "green", []],
+    ["pot_load:VCC", "vcc1:VCC", "red", []],
+    ["pot_load:GND", "gnd1:GND", "black", []],
+
+    ["stm32:B5", "btn_approve:1.l", "green", []],
+    ["btn_approve:2.r", "gnd1:GND", "black", []],
+
+    ["stm32:B6", "btn_stall:1.l", "green", []],
+    ["btn_stall:2.r", "gnd1:GND", "black", []],
+
+    ["stm32:B7", "btn_overload:1.l", "green", []],
+    ["btn_overload:2.r", "gnd1:GND", "black", []],
+
+    ["stm32:B8", "btn_sensor:1.l", "green", []],
+    ["btn_sensor:2.r", "gnd1:GND", "black", []],
+
+    ["stm32:B12", "btn_bkin:1.l", "orange", []],
+    ["btn_bkin:2.r", "vcc1:VCC", "red", []],
+
+    ["stm32:B13", "r_run:1", "green", []],
+    ["r_run:2", "led_run:A", "green", []],
+    ["led_run:C", "gnd1:GND", "black", []],
+
+    ["stm32:B14", "r_warn:1", "yellow", []],
+    ["r_warn:2", "led_warn:A", "yellow", []],
+    ["led_warn:C", "gnd1:GND", "black", []],
+
+    ["stm32:B15", "r_fault:1", "red", []],
+    ["r_fault:2", "led_fault:A", "red", []],
+    ["led_fault:C", "gnd1:GND", "black", []],
+
+    ["stm32:A4", "r_lockout:1", "blue", []],
+    ["r_lockout:2", "led_lockout:A", "blue", []],
+    ["led_lockout:C", "gnd1:GND", "black", []]
+  ],
+  "dependencies": {}
+}

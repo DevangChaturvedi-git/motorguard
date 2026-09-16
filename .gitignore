@@ -1,0 +1,3 @@
+*.o
+*.map
+test/i2t_tune
